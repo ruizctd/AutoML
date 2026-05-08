@@ -13,11 +13,13 @@ import json
 import logging
 import time
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Optional
 
+import base64
+
 import requests
-from dotenv import load_dotenv, set_key
+from dotenv import load_dotenv
+from nacl import encoding, public as nacl_public
 
 # ---------------------------------------------------------------------------
 # Configuración inicial
@@ -25,7 +27,6 @@ from dotenv import load_dotenv, set_key
 
 load_dotenv()
 
-ENV_FILE = Path(".env")
 LOG_FILE_PUBLICACIONES = "publicaciones.log"
 LOG_FILE_ERRORES = "errores.log"
 ML_BASE = "https://api.mercadolibre.com"
@@ -63,6 +64,51 @@ err_log.propagate = False
 
 
 # ---------------------------------------------------------------------------
+# GitHub Secrets
+# ---------------------------------------------------------------------------
+
+def update_github_secret(secret_name: str, secret_value: str) -> None:
+    """Actualiza un Secret en el repositorio de GitHub usando la API REST."""
+    gh_token = os.getenv("GH_TOKEN")
+    gh_repo = os.getenv("GH_REPO")  # formato: "owner/repo"
+
+    if not gh_token or not gh_repo:
+        log.warning("GH_TOKEN o GH_REPO no configurados. No se pudo persistir %s.", secret_name)
+        return
+
+    headers = {
+        "Authorization": f"Bearer {gh_token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+
+    # 1. Obtener la public key del repo (requerida para cifrar)
+    resp = requests.get(
+        f"https://api.github.com/repos/{gh_repo}/actions/secrets/public-key",
+        headers=headers,
+        timeout=30,
+    )
+    resp.raise_for_status()
+    key_data = resp.json()
+
+    # 2. Cifrar el valor con libsodium (SealedBox)
+    public_key = nacl_public.PublicKey(key_data["key"].encode("utf-8"), encoding.Base64Encoder())
+    sealed_box = nacl_public.SealedBox(public_key)
+    encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+    encrypted_b64 = base64.b64encode(encrypted).decode("utf-8")
+
+    # 3. Actualizar el secret
+    resp = requests.put(
+        f"https://api.github.com/repos/{gh_repo}/actions/secrets/{secret_name}",
+        headers=headers,
+        json={"encrypted_value": encrypted_b64, "key_id": key_data["key_id"]},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    log.info("Secret '%s' actualizado en GitHub correctamente.", secret_name)
+
+
+# ---------------------------------------------------------------------------
 # Manejo de tokens
 # ---------------------------------------------------------------------------
 
@@ -92,9 +138,9 @@ def refresh_access_token() -> str:
     new_access_token = data["access_token"]
     new_refresh_token = data["refresh_token"]
 
-    # Persistir el nuevo refresh_token para la próxima ejecución
+    # Persistir el nuevo refresh_token en GitHub Secrets para la próxima ejecución
     os.environ["REFRESH_TOKEN"] = new_refresh_token
-    set_key(str(ENV_FILE), "REFRESH_TOKEN", new_refresh_token)
+    update_github_secret("REFRESH_TOKEN", new_refresh_token)
 
     log.info("Token renovado correctamente. Expira en %s segundos.", data.get("expires_in", 21600))
     return new_access_token

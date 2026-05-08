@@ -1,0 +1,42 @@
+name: Renovar publicaciones ML
+
+on:
+  schedule:
+    - cron: '0 11 * * *'  # 11:00 UTC = 5:00 AM CST México
+  workflow_dispatch:
+
+jobs:
+  renovar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          USER_ID: ${{ secrets.USER_ID }}
+          DAYS_TO_RENEW: ${{ secrets.DAYS_TO_RENEW }}
+          MAX_RENEWALS: ${{ secrets.MAX_RENEWALS }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_REPO: ${{ secrets.GH_REPO }}
+        run: python autoML.py
+
+      - name: Commit logs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add publicaciones.log errores.log
+          git diff --cached --quiet || git commit -m "logs: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
