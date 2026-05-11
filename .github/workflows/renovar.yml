@@ -2,7 +2,7 @@ name: Renovar publicaciones ML
 
 on:
   schedule:
-    - cron: '30 13 * * *'  # 13:30 UTC = 8:30 AM CDT México
+    - cron: '15 15 * * *'  # 13:30 UTC = 8:30 AM CDT México
   workflow_dispatch:
 
 jobs:
