@@ -8,6 +8,7 @@ on:
 jobs:
   renovar:
     runs-on: ubuntu-latest
+    environment: Carros en confianza
     permissions:
       contents: write
 
