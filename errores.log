@@ -1,0 +1,6 @@
+
+────────────────────────────────────────────────────────────────
+  CICLO  2026-05-11 13:54:12  |  límite: 1
+────────────────────────────────────────────────────────────────
+2026-05-11 13:54:12  Error al renovar token: 400 Client Error: Bad Request for url: https://api.mercadolibre.com/oauth/token
+
