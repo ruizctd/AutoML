@@ -41,3 +41,40 @@ jobs:
           git add publicaciones.log errores.log
           git diff --cached --quiet || git commit -m "logs: $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
+
+      - name: Definir fecha
+        run: echo "FECHA=$(date -u '+%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Extraer ultimo ciclo
+        id: logs
+        run: |
+          extract_last_cycle() {
+            awk '/─{10}/{block=""} {block=block"\n"$0} END{print block}' "$1"
+          }
+          PUB=$(extract_last_cycle publicaciones.log)
+          ERR=$(extract_last_cycle errores.log)
+          echo "pub<<EOF" >> $GITHUB_OUTPUT
+          echo "$PUB"    >> $GITHUB_OUTPUT
+          echo "EOF"     >> $GITHUB_OUTPUT
+          echo "err<<EOF" >> $GITHUB_OUTPUT
+          echo "$ERR"    >> $GITHUB_OUTPUT
+          echo "EOF"     >> $GITHUB_OUTPUT
+
+      - name: Enviar resumen por email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "Renovación ML — ${{ env.FECHA }}"
+          to: ${{ secrets.EMAIL_TO }}
+          from: AutoML GitHub <${{ secrets.EMAIL_USER }}>
+          body: |
+            📊 PUBLICACIONES
+            ${{ steps.logs.outputs.pub }}
+
+            ─────────────────────────────────────
+            ❌ ERRORES
+            ${{ steps.logs.outputs.err }}
