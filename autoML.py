@@ -13,6 +13,9 @@ import json
 import logging
 import time
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+
+CDMX = ZoneInfo("America/Mexico_City")
 from typing import Optional
 
 import base64
@@ -441,7 +444,7 @@ def write_cycle_header(fecha: str) -> None:
 
 def run_renewal_cycle() -> None:
     """Ciclo completo: refresh token → obtener items → renovar los que aplican."""
-    fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    fecha = datetime.now(CDMX).strftime("%Y-%m-%d %H:%M:%S")
     log.info("========== Iniciando ciclo de renovación ==========")
     write_cycle_header(fecha)
 
