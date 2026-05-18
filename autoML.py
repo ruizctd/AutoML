@@ -362,7 +362,7 @@ def renew_item(token: str, item_id: str) -> Optional[dict]:
     # 3. POST nueva publicación con cascada de listing types
     new_body = build_new_item_body(detail)
     original_type = new_body["listing_type_id"]
-    start_index = LISTING_TYPE_CASCADE.index(original_type) if original_type in LISTING_TYPE_CASCADE else 0
+    start_index = 0
 
     new_item_id = None
     used_type = None
