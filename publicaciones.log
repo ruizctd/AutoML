@@ -672,3 +672,10 @@
 2026-08-24 08:08:51  ✅  Porsche Cayenne Coupé 4.0 Gt S | ID viejo: MLM3189659577 → ID nuevo: MLM6072747052 | 30 días publicado
 2026-08-24 08:08:51  ✅  Porsche Cayenne Coupé 3.0 E Hybrid | ID viejo: MLM3188049367 → ID nuevo: MLM6072747082 | 31 días publicado
 2026-08-24 08:08:51  ✅  Porsche 911 Gt3 | ID viejo: MLM3187934013 → ID nuevo: MLM3384642741 | 31 días publicado
+
+────────────────────────────────────────────────────────────────
+  CICLO  2026-08-25 08:11:35  |  límite: 4
+────────────────────────────────────────────────────────────────
+2026-08-25 08:11:35  ✅  Audi Rs E-tron 0.0 Gt Quattro | ID viejo: MLM5807942716 → ID nuevo: MLM3392070089 | 31 días publicado [fallback: gold_premium → silver]
+2026-08-25 08:11:35  ✅  Mercedes-benz C250 | ID viejo: MLM5807942656 → ID nuevo: MLM3391935163 | 31 días publicado [fallback: gold_premium → silver]
+2026-08-25 08:11:35  ✅  Porsche 911 3.0 Carrera 4s Cabriolet Pdk | ID viejo: MLM5807942652 → ID nuevo: MLM3391935171 | 31 días publicado [fallback: gold → silver]
