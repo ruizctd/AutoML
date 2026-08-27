@@ -685,3 +685,10 @@
 ────────────────────────────────────────────────────────────────
 2026-08-26 08:09:31  ✅  Audi S6 | ID viejo: MLM3195398527 → ID nuevo: MLM3399267621 | 31 días publicado
 2026-08-26 08:09:31  ✅  Audi R8 5.2 V10 Coupe Performance S-tronic | ID viejo: MLM5812966762 → ID nuevo: MLM3399267675 | 31 días publicado [fallback: gold_premium → silver]
+
+────────────────────────────────────────────────────────────────
+  CICLO  2026-08-27 17:00:24  |  límite: 4
+────────────────────────────────────────────────────────────────
+2026-08-27 17:00:24  ✅  Mercedes-benz G500 | ID viejo: MLM3206578131 → ID nuevo: MLM6111183610 | 30 días publicado [fallback: gold_premium → silver]
+2026-08-27 17:00:24  ✅  Bmw X6 4.4 V8 M60i | ID viejo: MLM3202742011 → ID nuevo: MLM6111282264 | 31 días publicado [fallback: gold → silver]
+2026-08-27 17:00:24  ✅  Audi A8 3.0 T Premium Tiptronic Quattro At | ID viejo: MLM3201000157 → ID nuevo: MLM6111232452 | 31 días publicado [fallback: gold → silver]
