@@ -870,3 +870,11 @@
 ────────────────────────────────────────────────────────────────
 2026-09-26 11:19:18  ✅  Porsche 718 Cayman Gt4rs | ID viejo: MLM6101697136 → ID nuevo: MLM3554517435 | 31 días publicado
 2026-09-26 11:19:18  ✅  Porsche Macan T | ID viejo: MLM3404096315 → ID nuevo: MLM6295023590 | 31 días publicado [fallback: gold_premium → silver]
+
+────────────────────────────────────────────────────────────────
+  CICLO  2026-09-27 11:52:28  |  límite: 4
+────────────────────────────────────────────────────────────────
+2026-09-27 11:52:28  ✅  Porsche 911 Cabriolet | ID viejo: MLM6112510416 → ID nuevo: MLM6299391554 | 31 días publicado [fallback: gold → silver]
+2026-09-27 11:52:28  ✅  Mercedes-benz G500 | ID viejo: MLM6111183610 → ID nuevo: MLM3558449535 | 31 días publicado [fallback: gold → silver]
+2026-09-27 11:52:28  ✅  Bmw X6 4.4 V8 M60i | ID viejo: MLM6111282264 → ID nuevo: MLM6299379344 | 31 días publicado [fallback: gold → silver]
+2026-09-27 11:52:28  ✅  Audi A8 3.0 T Premium Tiptronic Quattro At | ID viejo: MLM6111232452 → ID nuevo: MLM6299379370 | 31 días publicado [fallback: gold → silver]
