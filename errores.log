@@ -770,3 +770,9 @@
 ────────────────────────────────────────────────────────────────
 2026-11-13 14:34:02  Error al renovar token: 400 Client Error: Bad Request for url: https://api.mercadolibre.com/oauth/token
 
+
+────────────────────────────────────────────────────────────────
+  CICLO  2026-11-14 12:47:00  |  límite: 4
+────────────────────────────────────────────────────────────────
+2026-11-14 12:47:00  Error al renovar token: 400 Client Error: Bad Request for url: https://api.mercadolibre.com/oauth/token
+
